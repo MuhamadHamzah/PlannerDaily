@@ -1,0 +1,232 @@
+:root {
+  --bg-light: #fcf7f6;
+  --bg-dark: #1e1e1e;
+  --card-light: #f3ded9;
+  --card-dark: #2a2a2a;
+  --text-light: #222;
+  --text-dark: #f1f1f1;
+  --accent: #7421f0;
+  --note-complete: #999;
+  --note-accent: #e1796b;
+  --green: #37d299;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+body.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+#root {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 16px;
+  background-color: var(--card-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+body.dark #root {
+  background-color: var(--card-dark);
+}
+
+h1, h2, h3 {
+  text-align: center;
+  color: var(--accent);
+}
+
+#calendar {
+  margin-bottom: 20px;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.day {
+  background-color: transparent;
+  border: 2px solid transparent;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.day:hover {
+  background-color: rgba(116, 33, 240, 0.05);
+}
+
+.today {
+  border-color: var(--accent);
+}
+
+.selected {
+  background-color: var(--accent);
+  color: white;
+}
+
+.past {
+  color: var(--note-complete);
+  text-decoration: line-through;
+}
+
+.note-count-indicator {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--note-accent);
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+}
+
+#day-detail {
+  margin-top: 20px;
+  background-color: var(--bg-light);
+  border-radius: 12px;
+  padding: 20px;
+  transition: background-color 0.3s ease;
+}
+
+body.dark #day-detail {
+  background-color: var(--card-dark);
+}
+
+.notes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.notes li {
+  background-color: var(--card-light);
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.dark .notes li {
+  background-color: var(--card-dark);
+}
+
+.notes li.completed {
+  text-decoration: line-through;
+  color: var(--note-complete);
+}
+
+.notes li button,
+#fetch-on-this-day,
+#add-note,
+#today,
+.theme-toggle {
+  background-color: var(--note-accent);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+#add-note,
+.notes li button {
+  background-color: var(--green);
+}
+
+#today {
+  background-color: var(--accent);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--accent);
+  z-index: 1000;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.add-note {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.add-note input[type='text'] {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.dark .loading-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--green);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .calendar-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .add-note {
+    flex-direction: column;
+  }
+
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+  }
+}
